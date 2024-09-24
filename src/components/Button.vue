@@ -1,6 +1,5 @@
 <script setup>
-import { defineProps } from "vue";
-import { useToast } from "vue-toastification";
+import { defineEmits, defineProps } from "vue";
 
 defineProps({
   text: {
@@ -9,18 +8,18 @@ defineProps({
   },
 });
 
-const toast = useToast();
+const emit = defineEmits(["click"]);
+
+const handleClick = () => {
+  emit("click");
+};
 </script>
 
 <template>
   <button
-    @click="
-      () => {
-        toast.success('Message Sent!');
-      }
-    "
+    @click="handleClick"
     class="border-none rounded-md bg-[#0c7d69] hover:bg-[#2b4246] py-2 w-full text-white justify-items-center"
   >
-    {{ text }}
+    <slot />
   </button>
 </template>
